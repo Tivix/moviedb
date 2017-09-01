@@ -1,0 +1,35 @@
+<HTML>
+
+<HEAD>
+    <title>MovieDB</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</HEAD>
+
+<BODY>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar header">
+        <a class="navbar-brand">MovieDB</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'movie:home' %}">Home</a></li>
+        <li><a href="{% url 'movie:search' %}">Movies</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {%if user.is_authenticated %}
+        <li><a href="{% url 'movie:account' %}">Your account</a></li>
+        <li><a href="{% url 'movie:logout' %}">Log out</a></li>
+        {%else%}
+        <li><a href="{% url 'movie:login'%}">Sign in</a></li>
+        {%endif%}
+      </ul>
+    </div>
+  </nav>
+  {%block context%}
+  {%endblock%}
+</BODY>
+
+
+</HTML>

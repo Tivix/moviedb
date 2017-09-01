@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block context %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <div>
+        Register
+        <form action="{% url 'movie:register' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="register_username">Username:</label>
+                <input class="form-control" id="register_username" name="register_username"/>
+            </div>
+            <div class="form-group">
+                <label for="register_password">Password:</label>
+                <input type="password" class="form-control" id="register_password" name="register_password"/>
+            </div>
+            <div class="form-group">
+                <label for="username">Confirm password:</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password"/>
+            </div>
+            <button class="btn btn-default">Register</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div>
+        Login
+        <form action="{% url 'movie:login'%}" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input class="form-control" id="username" name="username"/>
+          </div>
+          <div class="form-group">
+            <label for="username">Password:</label>
+            <input type="password" class="form-control" id="password" name="password"/>
+          </div>
+          <button class="btn btn-default">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

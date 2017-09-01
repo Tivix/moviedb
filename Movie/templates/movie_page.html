@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block context %}
+  <div class="container" style="align-content: center">
+    <div class="row">
+      <div class="col-lg-3">
+        {% if movie.static_cover %}
+            <img src="{% static 'static_test.jpg' %}" width="100%"/>
+        {% else %}
+            <img src="{{movie.cover_url}}" width="100%"/>
+        {% endif %}
+      </div>
+      <div class="col-sm-6">
+        <div>
+            <h1>{{movie.title}}</h1>
+            <h3>{{movie.year}}</h3>
+            <h3>{{movie.rating}}</h3>
+            <div>
+            {% for genre in movie.genres %}
+                {{genre}}
+            {% endfor %}
+            </div>
+
+            <div>
+                {{ movie.overview }}
+            </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        {% if user.is_authenticated %}
+          {% if is_liked %}
+          <form action="{% url 'movie:dislike' movie.id %}">
+            <button class="btn btn-default" type="submit">Remove from favourite</button>
+          </form>
+          {% else %}
+          <form action="{% url 'movie:like' movie.id %}">
+            <button class="btn btn-default" type="submit">Add to favourite</button>
+          </form>
+          {% endif %}
+
+        {% else %}
+          Sign in for more options
+        {% endif%}
+      </div>
+    </div>
+    <div class="container">
+        <div class="text-center">
+            <h2>Similar movies</h2>
+        </div>
+        <div class="row">
+      {% for movie in similar %}
+          <div class="col-sm-4 text-center">
+            {% if movie.static_cover %}
+                <a href="{% url 'movie:movie' movie.id %}"><img src="{% static 'static_test.jpg' %}" width="50%"/></a>
+            {% else %}
+                <a href="{% url 'movie:movie' movie.id %}"><img src="{{movie.cover_url}}" width="50%"/></a>
+            {% endif %}
+          </div>
+      {% endfor %}
+    </div>
+    </div>
+
+  </div>
+{% endblock %}

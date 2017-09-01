@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block context %}
+  <div class="container">
+    <h3>Username: {{user.username}}</h3>
+    <h3>Account since: {{user.date_joined}}</h3>
+    <h2>Your movies</h2>
+    <table class="table">
+      {% for movie in movies %}
+        <tr>
+          <td><a href="{% url 'movie:movie' movie.movie.movie_id %}">{{movie.movie.title}}</a></td>
+          <td>{{movie.movie.rating}}</td>
+        </tr>
+      {% endfor %}
+    </table>
+
+  </div>
+{% endblock %}
+{{movie.movie.title}}

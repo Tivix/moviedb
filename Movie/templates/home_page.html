@@ -1,0 +1,68 @@
+{%extends 'base.html'%}
+
+{%block context %}
+<div class = "container">
+  <div class="row">
+    <div class="col-lg-6">
+      <h1>Popular Movies</h1>
+      <div id="recentCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#recentCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#recentCarousel" data-slide-to="1"></li>
+          <li data-target="#recentCarousel" data-slide-to="2"></li>
+          <li data-target="#recentCarousel" data-slide-to="3"></li>
+          <li data-target="#recentCarousel" data-slide-to="4"></li>
+        </ol>
+
+        <div class="carousel-inner">
+          {%for item in slideshow %}
+            {% if forloop.counter == 1 %}
+            <div class="item active">
+              <a href="{% url 'movie:movie' item.id %}">
+                <img src="{{item.cover_url}}" style="width:100%"/>
+              </a>
+              <div class="carousel-caption">
+                <h3>{{item.title}}</h3>
+                <p>{{item.year}}</p>
+              </div>
+            </div>
+            {% else %}
+            <div class="item">
+              <a href="{% url 'movie:movie' item.id %}">
+                <img src="{{item.cover_url}}" style="width:100%"/>
+              </a>
+              <div class="carousel-caption">
+                <h3>{{item.title}}</h3>
+                <p>{{item.year}}</p>
+              </div>
+            </div>
+            {% endif %}
+          {% endfor %}
+          <a class="left carousel-control" href="#recentCarousel" data-slide="prev">
+           <span class="glyphicon glyphicon-chevron-left"></span>
+           <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#recentCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <h1>Top 20 Movies</h1>
+      <table class="table">
+        {% for movie in top20 %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td><a href="{% url 'movie:movie' movie.id %}">{{movie.title}}</a></td>
+{#            <td>{{movie.year}}</td>#}
+            <td>{{movie.rating}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+
+{%endblock%}

@@ -1,0 +1,53 @@
+{%extends 'base.html'%}
+{% load static %}
+{% block context %}
+<!-- Container Searching Form -->
+<div class="jumbotron">
+  <form class="form-inline text-center" action="{% url 'movie:search' %}" method="GET">
+    <div class="form-group">
+      <label for="query">Search:</label>
+      <input class="form-control" id="query" name="query"/>
+    </div>
+    <button class="btn btn-default">Search</button>
+  </form>
+</div>
+<!-- End of Searching form container -->
+
+{% if not error %}
+<!-- Movie list container -->
+<div class="container">
+    {% for movie in movies %}
+        {% if forloop.counter in start_row %}
+            <div class="row" style="margin-top: 10px">
+        {% endif %}
+                <div class="col-sm-3 text-center" >
+                <a href="{% url 'movie:movie' movie.id %}">
+                    {% if movie.static_cover %}
+                        <img src="{% static 'static_test.jpg' %}" width="100%"/>
+                    {% else %}
+                        <img src="{{movie.cover_url}}" width="100%"/>
+                    {% endif %}
+                    <h5>{{ movie.title }}</h5>
+                </a>
+                </div>
+        {% if forloop.counter in end_row %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+<!-- End of movie list container -->
+
+<!-- Pagining container -->
+<div class="container">
+  <ul class="pager">
+    {% if page != 1 %}<li class="previous"><a href="{%url 'movie:search'%}?page={{prev_page}}&query={{request.GET.query}}">Previous</a></li>{% endif %}
+    {% if page != counter %}<li class="next"><a href="{%url 'movie:search'%}?page={{next_page}}&query={{request.GET.query}}">Next</a></li>{% endif %}
+  </ul>
+</div>
+<!-- End of pagining container -->
+{% else %}
+<div class="container">
+  {{error}}
+</div>
+{% endif %}
+{% endblock %}
