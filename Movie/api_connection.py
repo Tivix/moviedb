@@ -77,6 +77,7 @@ def discover_movie(page):
     else:
         return None
 
+
 def similar_movie(movie_id):
     url = 'https://api.themoviedb.org/3/movie/{movie_id}/similar?'.format(movie_id=movie_id)
     raw_data = json_responder(url)

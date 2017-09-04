@@ -35,6 +35,3 @@ def movie_page_context(request, movie_id):
         'similar': similar
     }
     return context
-
-def account_page_context(request):
-    i
